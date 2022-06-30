@@ -74,7 +74,7 @@
 
 > __DEVs for this Project__
 
-- __[76.otho](https://instagram.com/76.otho)__ - @ggservices-exe aka 76.otho
+- __[76.otho](https://instagram.com/76.otho)__ - @GGS3rvic3s aka 76.otho
 
 
 ---
