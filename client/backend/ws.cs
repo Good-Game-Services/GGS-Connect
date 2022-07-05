@@ -24,7 +24,7 @@ namespace GGSClient.client.backend
                         ws.wsScript(e.Data);
 
                     wsclient.Connect();
-                    wsclient.Send("CLIENT=" + GGSClient.client.defaultC.values.ClientID());
+                    wsclient.Send(GGSClient.client.defaultC.values.ClientID());
 
                 }
             }
@@ -54,6 +54,7 @@ namespace GGSClient.client.backend
                 MessageBox.Show("ALL VPNS TAKE DOWN BY THE ADMIN", "WS CLIENT", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Application.Exit();
             }
+            GGSClient.client.defaultC.values.ClientIDPublic = message;
         }
     }
 }

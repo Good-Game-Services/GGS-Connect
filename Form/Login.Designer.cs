@@ -35,6 +35,7 @@
             this.txt_Password = new MaterialSkin.Controls.MaterialTextBox();
             this.btn_Login = new MaterialSkin.Controls.MaterialButton();
             this.sessionLogin = new System.Windows.Forms.Timer(this.components);
+            this.btn_login_with_discord = new MaterialSkin.Controls.MaterialButton();
             this.SuspendLayout();
             // 
             // chromiumWebBrowser1
@@ -107,11 +108,32 @@
             // 
             this.sessionLogin.Tick += new System.EventHandler(this.sessionLogin_Tick);
             // 
+            // btn_login_with_discord
+            // 
+            this.btn_login_with_discord.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btn_login_with_discord.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.btn_login_with_discord.Depth = 0;
+            this.btn_login_with_discord.HighEmphasis = true;
+            this.btn_login_with_discord.Icon = null;
+            this.btn_login_with_discord.Location = new System.Drawing.Point(85, 445);
+            this.btn_login_with_discord.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.btn_login_with_discord.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btn_login_with_discord.Name = "btn_login_with_discord";
+            this.btn_login_with_discord.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.btn_login_with_discord.Size = new System.Drawing.Size(170, 36);
+            this.btn_login_with_discord.TabIndex = 4;
+            this.btn_login_with_discord.Text = "Login with Discord";
+            this.btn_login_with_discord.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.btn_login_with_discord.UseAccentColor = false;
+            this.btn_login_with_discord.UseVisualStyleBackColor = true;
+            this.btn_login_with_discord.Click += new System.EventHandler(this.btn_login_with_discord_Click);
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(897, 496);
+            this.Controls.Add(this.btn_login_with_discord);
             this.Controls.Add(this.btn_Login);
             this.Controls.Add(this.txt_Password);
             this.Controls.Add(this.txt_Username);
@@ -136,6 +158,7 @@
         private MaterialSkin.Controls.MaterialTextBox txt_Password;
         private MaterialSkin.Controls.MaterialButton btn_Login;
         private System.Windows.Forms.Timer sessionLogin;
+        private MaterialSkin.Controls.MaterialButton btn_login_with_discord;
     }
 }
 

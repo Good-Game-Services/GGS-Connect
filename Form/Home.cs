@@ -32,6 +32,9 @@ namespace GGSClient
             chromiumWebBrowser1.Load("http://localhost:1338/client/wallpaper"); //Set Wallpaper
             GGSClient.client.backend.http.WebGUI(187); // Start WebGUI
             vpn_status.Enabled = true;
+
+            //Label
+            lable_username.Text = "Welcome back " + GGSClient.client.defaultC.values.user_username;
         }
 
         private void Home_FormClosing(object sender, FormClosingEventArgs e)
@@ -60,14 +63,14 @@ namespace GGSClient
         {
             if (switch_VPN_State.Checked == true)
             {
-                GGSClient.client.backend.openvpn.client.connectVPN();
+                GGSClient.client.backend.openvpn.client.Manager("ggs-network.de", 3306, $@"{GGSClient.client.defaultC.values.AppDataPath}\client.ovpn");
                 GGSClient.client.defaultC.values.connected = true;
                 label_vpn_status.LinkColor = Color.Green;
                 label_vpn_status.Text = "Connected";
             }
             else
             {
-                GGSClient.client.backend.openvpn.client.disconnect();
+                GGSClient.client.backend.openvpn.client.Kill("GGS-ConnectVPN");
                 GGSClient.client.defaultC.values.connected = false;
                 label_vpn_status.LinkColor = Color.Red;
                 label_vpn_status.Text = "Disonnected";

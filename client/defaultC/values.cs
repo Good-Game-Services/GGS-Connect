@@ -73,7 +73,7 @@ namespace GGSClient.client.defaultC
         //Client default
         public static bool useNet = false;
         public static string logPath = $@"{GGSClient.client.defaultC.values.AppDataPath}\logfile.log";
-        public static bool DemoMode = true;
+        public static bool DemoMode = false;
 
         //GET CLIENT ID
         private static Random random = new Random();
@@ -83,5 +83,6 @@ namespace GGSClient.client.defaultC
             return new string(Enumerable.Repeat(chars, 16)
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
+        public static string ClientIDPublic;
     }
 }

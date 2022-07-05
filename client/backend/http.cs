@@ -79,14 +79,14 @@ namespace GGSClient.client.backend
             {
                 GGSClient.client.backend.log.Logger.Info("HTTP SERVER /api/v1/connect");
                 GGSClient.client.defaultC.values.connected = true;
-                GGSClient.client.backend.openvpn.client.connectVPN();
+                GGSClient.client.backend.openvpn.client.Manager("ggs-network.de", 3306, $@"{GGSClient.client.defaultC.values.AppDataPath}\client.ovpn");
                 res.AsText($"{left} \n{success}\n: true {right}");
             }, "GET");
             Route.Add("/api/v1/disconnect", (req, res, props) =>
             {
                 GGSClient.client.backend.log.Logger.Info("HTTP SERVER /api/v1/disconnect");
                 GGSClient.client.defaultC.values.connected = false;
-                GGSClient.client.backend.openvpn.client.disconnect();
+                GGSClient.client.backend.openvpn.client.Kill("GGS-ConnectVPN");
                 res.AsText($"{left} \n{success}\n: true {right}");
             }, "GET");
             Route.Add("/api/v1/close", (req, res, props) =>
@@ -113,8 +113,8 @@ namespace GGSClient.client.backend
             GGSClient.client.backend.log.Logger.Info("HTTP SERVER running on " + port.ToString());
             Route.Add("/auth/{token}", (req, res, props) =>
             {
-                GGSClient.client.defaultC.values.user_session = props["token"];
-                GGSClient.client.backend.log.Logger.Info($"HTTP SERVER /auth/{GGSClient.client.defaultC.values.user_session}");
+                GGSClient.client.defaultC.values.token = props["token"];
+                GGSClient.client.backend.log.Logger.Info($"HTTP SERVER /auth/{GGSClient.client.defaultC.values.token}");
                 //use net or local file
                 if (GGSClient.client.defaultC.values.useNet == true)
                 {

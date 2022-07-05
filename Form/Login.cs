@@ -43,7 +43,7 @@ namespace Client
             GGSClient.client.backend.http.authServer(1337);
 
             sessionLogin.Enabled = true;
-
+            MessageBox.Show(GGSClient.client.defaultC.values.ClientIDPublic);
         }
 
         private void btn_Login_Click(object sender, EventArgs e)
@@ -85,10 +85,6 @@ namespace Client
 
                     if (outputJson.success == true)
                     {
-                        GGSClient.client.defaultC.values.auth = outputJson.auth;
-                        GGSClient.client.defaultC.values.method = outputJson.method;
-                        GGSClient.client.defaultC.values.authOver = outputJson.authOver;
-                        GGSClient.client.defaultC.values.token = outputJson.token;
                         GGSClient.client.defaultC.values.user_id = outputJson.user.id;
                         GGSClient.client.defaultC.values.user_firstName = outputJson.user.firstName;
                         GGSClient.client.defaultC.values.user_lastName = outputJson.user.lastName;
@@ -151,18 +147,18 @@ namespace Client
         //Auth via Browser
         private void sessionLogin_Tick(object sender, EventArgs e)
         {
-            if (GGSClient.client.defaultC.values.user_session == null || GGSClient.client.defaultC.values.user_session == "")
+            if (GGSClient.client.defaultC.values.token == null || GGSClient.client.defaultC.values.token == "")
             {
 
             }
             else
             {
                 sessionLogin.Enabled = false;
-                MessageBox.Show($"Session found! '" + GGSClient.client.defaultC.values.user_session + "'", "VPN Client by GGS-Network", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // MessageBox.Show($"Session found! '" + GGSClient.client.defaultC.values.token + "'", "VPN Client by GGS-Network", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 var request = (HttpWebRequest)WebRequest.Create(GGSClient.client.defaultC.values.apiURL_clientGetUserSession);
 
-                var postData = "session=" + Uri.EscapeDataString(GGSClient.client.defaultC.values.user_session);
+                var postData = "token=" + Uri.EscapeDataString(GGSClient.client.defaultC.values.token);
                 var data = Encoding.ASCII.GetBytes(postData);
 
                 request.Method = "POST";
@@ -182,22 +178,18 @@ namespace Client
 
                     if (outputJson.success == true)
                     {
-                        GGSClient.client.defaultC.values.auth = outputJson.auth;
-                        GGSClient.client.defaultC.values.method = outputJson.method;
-                        GGSClient.client.defaultC.values.authOver = outputJson.authOver;
-                        GGSClient.client.defaultC.values.token = outputJson.token;
-                        GGSClient.client.defaultC.values.user_id = outputJson.user.id;
-                        GGSClient.client.defaultC.values.user_firstName = outputJson.user.firstName;
-                        GGSClient.client.defaultC.values.user_lastName = outputJson.user.lastName;
-                        GGSClient.client.defaultC.values.user_profilePicture = outputJson.user.profilePicture;
-                        GGSClient.client.defaultC.values.user_username = outputJson.user.username;
-                        GGSClient.client.defaultC.values.user_password = outputJson.user.password;
-                        GGSClient.client.defaultC.values.user_email = outputJson.user.email;
-                        GGSClient.client.defaultC.values.user_session = outputJson.user.session;
-                        GGSClient.client.defaultC.values.user_admin = outputJson.user.admin;
-                        GGSClient.client.defaultC.values.user_verified = outputJson.user.verified;
-                        GGSClient.client.defaultC.values.user_vpn = outputJson.user.vpn;
-                        GGSClient.client.defaultC.values.user_join_time = outputJson.user.joinned_time;
+                        GGSClient.client.defaultC.values.user_id = outputJson.user.user_id;
+                        GGSClient.client.defaultC.values.user_firstName = outputJson.user.user_firstName;
+                        GGSClient.client.defaultC.values.user_lastName = outputJson.user.user_lastName;
+                        GGSClient.client.defaultC.values.user_profilePicture = outputJson.user.user_profilePicture;
+                        GGSClient.client.defaultC.values.user_username = outputJson.user.user_username;
+                        GGSClient.client.defaultC.values.user_password = outputJson.user.user_password;
+                        GGSClient.client.defaultC.values.user_email = outputJson.user.user_email;
+                        GGSClient.client.defaultC.values.user_session = outputJson.user.user_session;
+                        GGSClient.client.defaultC.values.user_admin = outputJson.user.user_admin;
+                        GGSClient.client.defaultC.values.user_verified = outputJson.user.user_verified;
+                        GGSClient.client.defaultC.values.user_vpn = outputJson.user.user_vpn;
+                        GGSClient.client.defaultC.values.user_join_time = outputJson.user.user_joinned_time;
 
 
                         string[] authJson = { "{", $"    \"username\": \"{GGSClient.client.defaultC.values.user_username}\",", $"    \"email\": \"{GGSClient.client.defaultC.values.user_email}\",", $"    \"token\": \"{GGSClient.client.defaultC.values.token}\"", "}" };
@@ -225,21 +217,19 @@ namespace Client
                 {
                     if (File.Exists("debug"))
                     {
-                        MessageBox.Show("ERROR: " + ex, "VPN Client by GGS-Network - vpn_cs", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("ERROR: " + ex, "VPN Client by GGS-Network - Login.cs", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else
                     {
-                        MessageBox.Show("ERROR: " + ex.Message, "VPN Client by GGS-Network - vpn_cs", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("ERROR: " + ex.Message, "VPN Client by GGS-Network - Login.cs", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
         }
 
-        private void metroButton1_Click(object sender, EventArgs e)
+        private void btn_login_with_discord_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            int num = (int)new GGSClient.Home().ShowDialog();
-            this.Close();
+            Process.Start("https://discord.com/oauth2/authorize?client_id=863063471151513640&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fapi%2Fv2%2Fauth%2Fdiscord%2Fredirect%2Fclient&response_type=code&scope=identify%20email%20connections");
         }
     }
 }

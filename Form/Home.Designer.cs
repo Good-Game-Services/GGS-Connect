@@ -36,6 +36,7 @@
             this.switch_VPN_State = new MaterialSkin.Controls.MaterialSwitch();
             this.materialCard1 = new MaterialSkin.Controls.MaterialCard();
             this.label_vpn_status = new System.Windows.Forms.LinkLabel();
+            this.lable_username = new System.Windows.Forms.LinkLabel();
             this.materialCard1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,7 +60,7 @@
             this.btn_settings.Depth = 0;
             this.btn_settings.HighEmphasis = true;
             this.btn_settings.Icon = null;
-            this.btn_settings.Location = new System.Drawing.Point(18, 103);
+            this.btn_settings.Location = new System.Drawing.Point(18, 150);
             this.btn_settings.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btn_settings.MouseState = MaterialSkin.MouseState.HOVER;
             this.btn_settings.Name = "btn_settings";
@@ -76,7 +77,7 @@
             // 
             this.switch_VPN_State.AutoSize = true;
             this.switch_VPN_State.Depth = 0;
-            this.switch_VPN_State.Location = new System.Drawing.Point(14, 14);
+            this.switch_VPN_State.Location = new System.Drawing.Point(14, 61);
             this.switch_VPN_State.Margin = new System.Windows.Forms.Padding(0);
             this.switch_VPN_State.MouseLocation = new System.Drawing.Point(-1, -1);
             this.switch_VPN_State.MouseState = MaterialSkin.MouseState.HOVER;
@@ -96,30 +97,42 @@
             this.materialCard1.Controls.Add(this.btn_settings);
             this.materialCard1.Depth = 0;
             this.materialCard1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialCard1.Location = new System.Drawing.Point(794, 334);
+            this.materialCard1.Location = new System.Drawing.Point(794, 295);
             this.materialCard1.Margin = new System.Windows.Forms.Padding(14);
             this.materialCard1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialCard1.Name = "materialCard1";
             this.materialCard1.Padding = new System.Windows.Forms.Padding(14);
-            this.materialCard1.Size = new System.Drawing.Size(153, 159);
+            this.materialCard1.Size = new System.Drawing.Size(153, 198);
             this.materialCard1.TabIndex = 5;
             // 
             // label_vpn_status
             // 
             this.label_vpn_status.AutoSize = true;
             this.label_vpn_status.LinkColor = System.Drawing.Color.Red;
-            this.label_vpn_status.Location = new System.Drawing.Point(17, 51);
+            this.label_vpn_status.Location = new System.Drawing.Point(17, 98);
             this.label_vpn_status.Name = "label_vpn_status";
             this.label_vpn_status.Size = new System.Drawing.Size(73, 13);
             this.label_vpn_status.TabIndex = 6;
             this.label_vpn_status.TabStop = true;
             this.label_vpn_status.Text = "Disconnected";
             // 
+            // lable_username
+            // 
+            this.lable_username.AutoSize = true;
+            this.lable_username.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lable_username.Location = new System.Drawing.Point(12, 484);
+            this.lable_username.Name = "lable_username";
+            this.lable_username.Size = new System.Drawing.Size(25, 13);
+            this.lable_username.TabIndex = 6;
+            this.lable_username.TabStop = true;
+            this.lable_username.Text = "???";
+            // 
             // Home
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(960, 506);
+            this.Controls.Add(this.lable_username);
             this.Controls.Add(this.materialCard1);
             this.Controls.Add(this.chromiumWebBrowser1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -133,6 +146,7 @@
             this.materialCard1.ResumeLayout(false);
             this.materialCard1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -144,5 +158,6 @@
         private MaterialSkin.Controls.MaterialSwitch switch_VPN_State;
         private MaterialSkin.Controls.MaterialCard materialCard1;
         private System.Windows.Forms.LinkLabel label_vpn_status;
+        private System.Windows.Forms.LinkLabel lable_username;
     }
 }

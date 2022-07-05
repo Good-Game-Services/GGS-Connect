@@ -1,7 +1,7 @@
 bin
 obj
 publish
-packages/cef.redist.x64.102.0.9
-packages/cef.redist.x86.102.0.9
-packages/CefSharp.WinForms.102.0.90
-packages/CefSharp.Common.102.0.90
+packages/cef.redist.x64.103.0.8
+packages/cef.redist.x86.103.0.8
+packages/CefSharp.WinForms.103.0.90
+packages/CefSharp.Common.103.0.90
