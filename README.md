@@ -22,12 +22,13 @@
 - The VPN Client can be used to connect a Private-Network over the GGS-Network Servers without open any Ports on the Private-Network.
 - The Client overs a lot of cheap Abo's to use the VPN-Services (Coming soon...).
 - The Traffic can be take over the Tor-Network to protect your Privacy.
+- Local-Proxy allow to block or redirect Request's or change the response.
 
 ##### Every Libary will be published soon to use it, in your projects.
 
 ---
 > __Details__
-- Ports are using ```{ 187 , 652 , 1338 , 8000 }```.
+- Ports are using ```{ 187 , 652 , 1338 , 8000 , 652 }```.
 - Adding two Network Adapters ```{ "TAP6-Windows" , "TUN-Network-Tunnel"}```.
 - Internet connection.
 - Third-Party Software ```{ "OpenVPN" , "HTML5 Files" , "Access to External Websites" , "See in Libary's..."}```.
@@ -36,6 +37,7 @@
 - Create Registry-Entry.
 - Client must be runned as Admin-Right.
 - Using CefSharp as Wallpaper.
+- Using Titanium-Proxy to run Local-Proxy.
 
 --- 
 > __Licence and used Libarys__
