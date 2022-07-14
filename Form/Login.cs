@@ -43,7 +43,18 @@ namespace Client
             GGSClient.client.backend.http.authServer(1337);
 
             sessionLogin.Enabled = true;
-            MessageBox.Show(GGSClient.client.defaultC.values.ClientIDPublic);
+            //MessageBox.Show(GGSClient.client.defaultC.values.ClientIDPublic);
+
+            if (GGSClient.client.defaultC.values.onlyDiscord)
+            {
+                btn_Login.Visible = false;
+                txt_Username.Visible = false;
+                txt_Password.Visible = false;
+            }
+            else
+            {
+                btn_login_with_discord.Visible = false;
+            }
         }
 
         private void btn_Login_Click(object sender, EventArgs e)
@@ -154,82 +165,22 @@ namespace Client
             else
             {
                 sessionLogin.Enabled = false;
-                // MessageBox.Show($"Session found! '" + GGSClient.client.defaultC.values.token + "'", "VPN Client by GGS-Network", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                var request = (HttpWebRequest)WebRequest.Create(GGSClient.client.defaultC.values.apiURL_clientGetUserSession);
-
-                var postData = "token=" + Uri.EscapeDataString(GGSClient.client.defaultC.values.token);
-                var data = Encoding.ASCII.GetBytes(postData);
-
-                request.Method = "POST";
-                request.ContentType = "application/x-www-form-urlencoded";
-                request.ContentLength = data.Length;
-
-                using (var stream = request.GetRequestStream())
+                if (GGSClient.client.backend.API.auth.authDiscord(GGSClient.client.defaultC.values.token))
                 {
-                    stream.Write(data, 0, data.Length);
+                    this.Hide();
+                    int num = (int)new GGSClient.Home().ShowDialog();
+                    this.Close();
                 }
-                try
+                else
                 {
-                    var response = (HttpWebResponse)request.GetResponse();
-
-                    var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
-                    dynamic outputJson = JsonConvert.DeserializeObject(responseString);
-
-                    if (outputJson.success == true)
-                    {
-                        GGSClient.client.defaultC.values.user_id = outputJson.user.user_id;
-                        GGSClient.client.defaultC.values.user_firstName = outputJson.user.user_firstName;
-                        GGSClient.client.defaultC.values.user_lastName = outputJson.user.user_lastName;
-                        GGSClient.client.defaultC.values.user_profilePicture = outputJson.user.user_profilePicture;
-                        GGSClient.client.defaultC.values.user_username = outputJson.user.user_username;
-                        GGSClient.client.defaultC.values.user_password = outputJson.user.user_password;
-                        GGSClient.client.defaultC.values.user_email = outputJson.user.user_email;
-                        GGSClient.client.defaultC.values.user_session = outputJson.user.user_session;
-                        GGSClient.client.defaultC.values.user_admin = outputJson.user.user_admin;
-                        GGSClient.client.defaultC.values.user_verified = outputJson.user.user_verified;
-                        GGSClient.client.defaultC.values.user_vpn = outputJson.user.user_vpn;
-                        GGSClient.client.defaultC.values.user_join_time = outputJson.user.user_joinned_time;
-
-
-                        string[] authJson = { "{", $"    \"username\": \"{GGSClient.client.defaultC.values.user_username}\",", $"    \"email\": \"{GGSClient.client.defaultC.values.user_email}\",", $"    \"token\": \"{GGSClient.client.defaultC.values.token}\"", "}" };
-                        File.WriteAllLines($@"{GGSClient.client.defaultC.values.AppDataPath}\account.json", authJson);
-
-                        this.Hide();
-                        int num = (int)new GGSClient.Home().ShowDialog();
-                        this.Close();
-                    }
-                    if (outputJson.success == false)
-                    {
-
-                        if (outputJson.msg == "You got Banned!")
-                        {
-                            MessageBox.Show($"{outputJson.msg} --- Reason {outputJson.reason}", "VPN Client by GGS-Network", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                        }
-                        else
-                        {
-                            MessageBox.Show($"{outputJson.msg}", "VPN Client by GGS-Network", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                        }
-                        sessionLogin.Enabled = false;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    if (File.Exists("debug"))
-                    {
-                        MessageBox.Show("ERROR: " + ex, "VPN Client by GGS-Network - Login.cs", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else
-                    {
-                        MessageBox.Show("ERROR: " + ex.Message, "VPN Client by GGS-Network - Login.cs", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    MessageBox.Show("Not valid!");
                 }
             }
         }
 
         private void btn_login_with_discord_Click(object sender, EventArgs e)
         {
-            Process.Start("https://discord.com/oauth2/authorize?client_id=863063471151513640&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fapi%2Fv2%2Fauth%2Fdiscord%2Fredirect%2Fclient&response_type=code&scope=identify%20email%20connections");
+            Process.Start("https://discord.com/api/oauth2/authorize?client_id=863063471151513640&redirect_uri=https%3A%2F%2Fggs-net.herokuapp.com%2Fapi%2Fv2%2Fauth%2Fdiscord%2Fredirect%2Fclient&response_type=code&scope=identify%20email%20connections");
         }
     }
 }

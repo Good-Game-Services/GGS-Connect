@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using GGSClient.client.backend.proxy;
+
 namespace GGSClient
 {
     public partial class Settings : Form
@@ -48,7 +50,7 @@ namespace GGSClient
         private void btn_reset_log_Click(object sender, EventArgs e)
         {
             NLog.LogManager.Shutdown();
-            File.Delete(GGSClient.client.defaultC.values.logPath);
+            File.Delete(GGSClient.client.defaultC.values.logPath + "/client.log");
             GGSClient.client.backend.log.runConfig();
             GGSClient.client.backend.log.Logger.Warn("Logger was reseted!");
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GGSClient.client.backend.proxy;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -14,6 +15,9 @@ namespace GGSClient.client.defaultC
 {
     internal class func
     {
+
+        public static readonly ProxyTestController controller = new ProxyTestController(); // Proxy controller
+
         public static WebClient webClient = new WebClient();
 
         //Random Char Gen

@@ -1,4 +1,4 @@
-﻿//External
+﻿//External NuGet
 using NLog;
 
 using System;
@@ -7,19 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GGSClient.client.backend
+namespace GGSClient.client.backend.proxy
 {
     internal class log
     {
-        public static readonly NLog.Logger Logger = NLog.LogManager.GetLogger("GGS-Connect");
+        public static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
         public static void runConfig()
         {
-            GGSClient.client.backend.log.Logger.Info("Logger File was succesfull injected!");
+            GGSClient.client.backend.log.Logger.Info("Logger File was succesfull injected! (proxy.log)");
             var config = new NLog.Config.LoggingConfiguration();
 
             // Targets where to log to: File and Console
-            var logfile = new NLog.Targets.FileTarget("logfile") { FileName = GGSClient.client.defaultC.values.logPath + "/client.log" };
+            var logfile = new NLog.Targets.FileTarget("logfile") { FileName = GGSClient.client.defaultC.values.logPath + "/proxy.log" };
             var logconsole = new NLog.Targets.ConsoleTarget("logconsole");
 
             // Rules for mapping loggers to targets            

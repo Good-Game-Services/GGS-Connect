@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
 using System.Threading;
+using System.Runtime.InteropServices;
 
 namespace GGSClient.client
 {
@@ -19,8 +20,9 @@ namespace GGSClient.client
 
             GGSClient.client.backend.log.Logger.Info("Start Application with code 0x0");
             //GGSClient.client.startLaunching.checkFileSys();
-            Thread wss = new Thread(backend.ws.runWSClient("ws://localhost:8080"));
-            wss.Start();
+            //Thread wss = new Thread(backend.ws.runWSClient("ws://localhost:8080"));
+            //wss.Start();
+
         }
 
         public static void checkFileSys()

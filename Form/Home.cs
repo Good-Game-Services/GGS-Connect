@@ -76,5 +76,22 @@ namespace GGSClient
                 label_vpn_status.Text = "Disonnected";
             }
         }
+
+        private void switch_TP_CheckedChanged(object sender, EventArgs e)
+        {
+            if (switch_TP.Checked == true)
+            {
+                GGSClient.client.backend.proxy.log.runConfig();
+                GGSClient.client.defaultC.func.controller.StartProxy();
+                label_tp_status.LinkColor = Color.Green;
+                label_tp_status.Text = "Connected";
+            }
+            else
+            {
+                GGSClient.client.defaultC.func.controller.Stop();
+                label_tp_status.LinkColor = Color.Red;
+                label_tp_status.Text = "Disonnected";
+            }
+        }
     }
 }

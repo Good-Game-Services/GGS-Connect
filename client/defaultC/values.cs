@@ -72,8 +72,9 @@ namespace GGSClient.client.defaultC
 
         //Client default
         public static bool useNet = false;
-        public static string logPath = $@"{GGSClient.client.defaultC.values.AppDataPath}\logfile.log";
-        public static bool DemoMode = false;
+        public static string logPath = $@"{GGSClient.client.defaultC.values.AppDataPath}\logs";
+        public static bool DemoMode = true;
+        public static bool onlyDiscord = false;
 
         //GET CLIENT ID
         private static Random random = new Random();
