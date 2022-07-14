@@ -83,7 +83,7 @@
 > __Footer__
 - __[Apache Licence](https://www.apache.org/licenses/LICENSE-2.0)__ - This project is under the Apache Licence
 - __[Managed by](https://good-game-services.de)__ - This project is managed by ©2021 GoodGameServices
-- __[Developed by](https://ggs-network.de)__ - This project is develped by ©2021 GGS-Network
+- __[Developed by](https://ggs-network.com)__ - This project is develped by ©2021 GGS-Network
 
 ##### *The vpn-client is in beta version. The stable version will be release soon.
 ##### **[VPN](https://de.wikipedia.org/wiki/Virtual_Private_Network) - (Virtual Private Network).
