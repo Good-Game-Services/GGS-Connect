@@ -38,6 +38,17 @@ namespace GGSClient.client.defaultC
         public static int user_vpn;
         public static string user_join_time;
 
+
+        //Discord AUTH
+        public static string DiscordAuth_token;
+        public static string DiscordAuth_access_token;
+        public static string DiscordAuth_email;
+        public static string DiscordAuth_username;
+
+        //Discord Application
+        public static string DiscordApp_client_id;
+        public static string DiscordApp_client_secret;
+
         //DiscordRPC
         public static string DiscordUserName;
         public static string DiscordUserID;

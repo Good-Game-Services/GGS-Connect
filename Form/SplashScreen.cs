@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using WMPLib;
 using System.Threading;
+using Microsoft.VisualBasic;
+using System.IO;
 
 namespace GGSClient
 {
@@ -21,6 +23,11 @@ namespace GGSClient
 
         private void SplashScreen_Load(object sender, EventArgs e)
         {
+            GGSClient.client.defaultC.values.DiscordApp_client_id = Interaction.InputBox("Discord Client ID:", "Discord DEV", "");
+            GGSClient.client.defaultC.values.DiscordApp_client_secret = Interaction.InputBox("Discord Client Secret:", "Discord DEV", "");
+
+            string[] DiscordDEVJson = { "{", $"\"client_id\": \"{GGSClient.client.defaultC.values.DiscordApp_client_id}\",", $"\"client_secret\": \"{GGSClient.client.defaultC.values.DiscordApp_client_secret}\"", "}" };
+            File.WriteAllLines(GGSClient.client.defaultC.values.AppDataPath + "/DiscordDEV.json", DiscordDEVJson);
             SplashPlayer.Ctlcontrols.play();
         }
 

@@ -111,9 +111,9 @@ namespace GGSClient.client.backend
         public static void authServer(int port)
         {
             GGSClient.client.backend.log.Logger.Info("HTTP SERVER running on " + port.ToString());
-            Route.Add("/auth/{token}", (req, res, props) =>
+            Route.Add("/auth", (req, res, props) =>
             {
-                GGSClient.client.defaultC.values.token = props["token"];
+                GGSClient.client.defaultC.values.DiscordAuth_token = req.QueryString.Get("code");
                 GGSClient.client.backend.log.Logger.Info($"HTTP SERVER /auth/{GGSClient.client.defaultC.values.token}");
                 //use net or local file
                 if (GGSClient.client.defaultC.values.useNet == true)

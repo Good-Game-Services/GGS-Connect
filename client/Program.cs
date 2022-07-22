@@ -29,6 +29,7 @@ namespace Client
                 {
                     MessageBox.Show("That is the first start of this client, please wait a second to install the client services and assets!", "VPN Client", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     GGSClient.client.backend.reg.setRegistry();
+                    GGSClient.client.startLaunching.firstStart();
                     Application.Run(new GGSClient.SplashScreen());
                 }
             }

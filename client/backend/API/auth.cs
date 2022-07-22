@@ -1,4 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿//External NuGet
+using DiscordRPC;
+using DiscordRPC.Events;
+using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,9 +18,15 @@ namespace GGSClient.client.backend.API
     {
         public static Boolean authDiscord(string token)
         {
-            var request = (HttpWebRequest)WebRequest.Create("https://ggs-net.herokuapp.com/api/v2/auth/client/token");
-
-            var postData = "token=" + Uri.EscapeDataString(token);
+            string DiscordDEVJson = File.ReadAllText(GGSClient.client.defaultC.values.AppDataPath + "/DiscordDEV.json");
+            dynamic DiscordDEVoutputJson = JsonConvert.DeserializeObject(DiscordDEVJson);
+            //GGSClient.client.backend.DiscordRPC.client.ApplicationID;
+            var request = (HttpWebRequest)WebRequest.Create("https://connect.ggs-network.de/ajax/request/account/change_name.php");
+            var postData = "client_id=" + Uri.EscapeDataString(DiscordDEVoutputJson.client_id);
+            postData += "&client_secret=" + Uri.EscapeDataString(DiscordDEVoutputJson.client_secret);
+            postData += "&grant_type=" + Uri.EscapeDataString("authorization_code");
+            postData += "&code=" + Uri.EscapeDataString(GGSClient.client.defaultC.values.DiscordAuth_token);
+            postData += "&redirect_uri=" + Uri.EscapeDataString("http://localhost:1337/auth");
             var data = Encoding.ASCII.GetBytes(postData);
 
             request.Method = "POST";
@@ -33,44 +43,28 @@ namespace GGSClient.client.backend.API
 
                 var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
                 dynamic outputJson = JsonConvert.DeserializeObject(responseString);
-
+                    
                 if (outputJson.success == true)
                 {
-                    GGSClient.client.defaultC.values.user_id = outputJson.user.id;
-                    GGSClient.client.defaultC.values.user_username = outputJson.user.username + outputJson.user.discriminator;
-                    GGSClient.client.defaultC.values.user_email = outputJson.user.email;
-
-                    string[] authJson = { "{", $"    \"username\": \"{GGSClient.client.defaultC.values.user_username}\",", $"    \"email\": \"{GGSClient.client.defaultC.values.user_email}\",", $"    \"token\": \"{GGSClient.client.defaultC.values.token}\"", "}" };
-                    File.WriteAllLines($@"{GGSClient.client.defaultC.values.AppDataPath}\account.json", authJson);
-                    return true;
+                    MessageBox.Show($"{outputJson.message}", "VPN Client by GGS-Network", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
                 if (outputJson.success == false)
                 {
-
-                    if (outputJson.msg == "You got Banned!")
-                    {
-                        MessageBox.Show($"{outputJson.msg} --- Reason {outputJson.reason}", "VPN Client by GGS-Network", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    }
-                    else
-                    {
-                        MessageBox.Show($"{outputJson.msg}", "VPN Client by GGS-Network", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    }
-                    return false;
+                    MessageBox.Show($"{outputJson.message}", "VPN Client by GGS-Network", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
             }
             catch (Exception ex)
             {
                 if (File.Exists("debug"))
                 {
-                    MessageBox.Show("ERROR: " + ex, "VPN Client by GGS-Network - Login.cs", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("ERROR: " + ex, "VPN Client by GGS-Network - handler_cs", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    MessageBox.Show("ERROR: " + ex.Message, "VPN Client by GGS-Network - Login.cs", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("ERROR: " + ex.Message, "VPN Client by GGS-Network - handler_cs", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                return false;
             }
-            return false;
+            
         }
     }
 }

@@ -2,12 +2,11 @@
 using Titanium.Web.Proxy;
 using Titanium.Web.Proxy.EventArguments;
 using Titanium.Web.Proxy.Models;
-using Titanium.Web.Proxy.EventArguments;
 using Titanium.Web.Proxy.Exceptions;
 using Titanium.Web.Proxy.Helpers;
 using Titanium.Web.Proxy.Http;
-using Titanium.Web.Proxy.Models;
 using Titanium.Web.Proxy.StreamExtended.Network;
+using Titanium.Web.Proxy.Http.Responses;
 
 using System;
 using System.Collections.Generic;
@@ -19,6 +18,7 @@ using DNS.Protocol;
 using System.Threading;
 using System.Collections.Concurrent;
 using System.Net.Security;
+using System.IO;
 
 namespace GGSClient.client.backend.proxy
 {
@@ -267,10 +267,10 @@ namespace GGSClient.client.backend.proxy
                 e.HttpClient.UpStreamEndPoint = new IPEndPoint(clientLocalIp, 0);
             }
 
-            if (e.HttpClient.Request.Url.Contains("yahoo.com"))
-            {
-                e.CustomUpStreamProxy = new ExternalProxy("localhost", 8888);
-            }
+            //if (e.HttpClient.Request.Url.Contains("yahoo.com"))
+            //{
+            //    e.CustomUpStreamProxy = new ExternalProxy("localhost", 8888);
+            //}
 
             writeToConsole("Active Client Connections:" + ((ProxyServer)sender).ClientConnectionCount);
             writeToConsole(e.HttpClient.Request.Url);
@@ -292,22 +292,10 @@ namespace GGSClient.client.backend.proxy
 
             // To cancel a request with a custom HTML content
             // Filter URL
-            //if (e.HttpClient.Request.RequestUri.AbsoluteUri.Contains("yahoo.com"))
-            //{ 
-            //    e.Ok("<!DOCTYPE html>" +
-            //          "<html><body><h1>" +
-            //          "Website Blocked" +
-            //          "</h1>" +
-            //          "<p>Blocked by titanium web proxy.</p>" +
-            //          "</body>" +
-            //          "</html>");
-            //} 
-
-            ////Redirect example
-            //if (e.HttpClient.Request.RequestUri.AbsoluteUri.Contains("wikipedia.org"))
-            //{ 
-            //   e.Redirect("https://www.paypal.com");
-            //} 
+            if (e.HttpClient.Request.RequestUri.AbsoluteUri == "https://pics.paypal.com//00/s/OTY5WDE1MzZYUE5H/p/YjA4ZmJhMGQtOWIyYi00YmFiLWE5MmUtM2RkZjNkNTFhZmJj/image__140.png")
+            {
+                e.Redirect("https://pics.paypal.com//00/s/OTY5WDE1MzZYUE5H/p/OTIxY2FlNGUtNDhiYy00NjkyLTliZTYtYWE1ODc1OGZhYjMw/image__140.png");
+            }
         }
 
         // Modify response
@@ -340,25 +328,24 @@ namespace GGSClient.client.backend.proxy
             // access user data set in request to do something with it
             //var userData = e.HttpClient.UserData as CustomUserData;
 
-            //if (ext == ".gif" || ext == ".png" || ext == ".jpg")
-            //{ 
-            //    byte[] btBody = Encoding.UTF8.GetBytes("<!DOCTYPE html>" +
-            //                                           "<html><body><h1>" +
-            //                                           "Image is blocked" +
-            //                                           "</h1>" +
-            //                                           "<p>Blocked by Titanium</p>" +
-            //                                           "</body>" +
-            //                                           "</html>");
-
-            //    var response = new OkResponse(btBody);
-            //    response.HttpVersion = e.HttpClient.Request.HttpVersion;
-
-            //    e.Respond(response);
-            //    e.TerminateServerConnection();
-            //} 
+            bool exists = Array.Exists(File.ReadAllLines(GGSClient.client.defaultC.values.AppDataPath + "/proxy/adlist.txt"), element => element == e.HttpClient.Request.RequestUri.AbsolutePath);
+            if (exists)
+            {
+                byte[] btBody = Encoding.UTF8.GetBytes("<!DOCTYPE html>" +
+                                                      "<html><body><h1>" +
+                                                      "Image is blocked" +
+                                                      "</h1>" +
+                                                      "<p>Blocked by Titanium</p>" +
+                                                      "</body>" +
+                                                      "</html>");
+                var response = new OkResponse(btBody);
+                response.HttpVersion = e.HttpClient.Request.HttpVersion;
+                e.Respond(response);
+                e.TerminateServerConnection();
+            }
 
             //// print out process id of current session
-            ////WriteToConsole($"PID: {e.HttpClient.ProcessId.Value}");
+            writeToConsole($"PID: {e.HttpClient.ProcessId.Value}");
 
             ////if (!e.ProxySession.Request.Host.Equals("medeczane.sgk.gov.tr")) return;
             //if (e.HttpClient.Request.Method == "GET" || e.HttpClient.Request.Method == "POST")
@@ -417,7 +404,7 @@ namespace GGSClient.client.backend.proxy
         private void writeToConsole(string message, ConsoleColor? consoleColor = null)
         {
             consoleMessageQueue.Enqueue(new Tuple<ConsoleColor?, string>(consoleColor, message));
-            GGSClient.client.backend.proxy.log.Logger.Info(message);
+            //GGSClient.client.backend.proxy.log.Logger.Info(message);
         }
 
         private async Task listenToConsole()
@@ -457,11 +444,11 @@ namespace GGSClient.client.backend.proxy
         ///// User data object as defined by user.
         ///// User data can be set to each SessionEventArgs.HttpClient.UserData property
         ///// </summary>
-        //public class CustomUserData
-        //{
-        //    public HeaderCollection RequestHeaders { get; set; }
-        //    public byte[] RequestBody { get; set; }
-        //    public string RequestBodyString { get; set; }
-        //}
+        public class CustomUserData
+        {
+            public HeaderCollection RequestHeaders { get; set; }
+            public byte[] RequestBody { get; set; }
+            public string RequestBodyString { get; set; }
+        }
     }
 }

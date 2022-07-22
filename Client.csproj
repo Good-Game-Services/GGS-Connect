@@ -528,6 +528,7 @@
     <Compile Include="client\backend\proxy\ClientState.cs" />
     <Compile Include="client\backend\proxy\log.cs" />
     <Compile Include="client\backend\proxy\ProxyEventArgsBaseExtensions.cs" />
+    <Compile Include="client\backend\proxy\readProxyJson.cs" />
     <Compile Include="client\backend\proxy\server.cs" />
     <Compile Include="client\backend\reg.cs" />
     <Compile Include="client\backend\selenium\client.cs" />

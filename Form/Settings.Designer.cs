@@ -46,9 +46,12 @@
             this.switch_DoH = new MaterialSkin.Controls.MaterialSwitch();
             this.materialCard3 = new MaterialSkin.Controls.MaterialCard();
             this.label_doh_status = new System.Windows.Forms.LinkLabel();
+            this.materialCard4 = new MaterialSkin.Controls.MaterialCard();
+            this.materialButton1 = new MaterialSkin.Controls.MaterialButton();
             this.materialCard1.SuspendLayout();
             this.materialCard2.SuspendLayout();
             this.materialCard3.SuspendLayout();
+            this.materialCard4.SuspendLayout();
             this.SuspendLayout();
             // 
             // chromiumWebBrowser1
@@ -324,11 +327,45 @@
             this.label_doh_status.TabStop = true;
             this.label_doh_status.Text = "Disonnected";
             // 
+            // materialCard4
+            // 
+            this.materialCard4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.materialCard4.Controls.Add(this.materialButton1);
+            this.materialCard4.Depth = 0;
+            this.materialCard4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialCard4.Location = new System.Drawing.Point(23, 349);
+            this.materialCard4.Margin = new System.Windows.Forms.Padding(14);
+            this.materialCard4.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialCard4.Name = "materialCard4";
+            this.materialCard4.Padding = new System.Windows.Forms.Padding(14);
+            this.materialCard4.Size = new System.Drawing.Size(431, 75);
+            this.materialCard4.TabIndex = 10;
+            // 
+            // materialButton1
+            // 
+            this.materialButton1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.materialButton1.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.materialButton1.Depth = 0;
+            this.materialButton1.HighEmphasis = true;
+            this.materialButton1.Icon = null;
+            this.materialButton1.Location = new System.Drawing.Point(17, 16);
+            this.materialButton1.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.materialButton1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialButton1.Name = "materialButton1";
+            this.materialButton1.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.materialButton1.Size = new System.Drawing.Size(158, 36);
+            this.materialButton1.TabIndex = 0;
+            this.materialButton1.Text = "materialButton1";
+            this.materialButton1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.materialButton1.UseAccentColor = false;
+            this.materialButton1.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1138, 567);
+            this.Controls.Add(this.materialCard4);
             this.Controls.Add(this.materialCard3);
             this.Controls.Add(this.btn_reset_log);
             this.Controls.Add(this.materialCard2);
@@ -347,6 +384,8 @@
             this.materialCard2.PerformLayout();
             this.materialCard3.ResumeLayout(false);
             this.materialCard3.PerformLayout();
+            this.materialCard4.ResumeLayout(false);
+            this.materialCard4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -371,5 +410,7 @@
         private MaterialSkin.Controls.MaterialSwitch switch_DoH;
         private MaterialSkin.Controls.MaterialCard materialCard3;
         private System.Windows.Forms.LinkLabel label_doh_status;
+        private MaterialSkin.Controls.MaterialCard materialCard4;
+        private MaterialSkin.Controls.MaterialButton materialButton1;
     }
 }
